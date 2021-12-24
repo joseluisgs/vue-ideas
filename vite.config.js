@@ -15,5 +15,9 @@ export default defineConfig({
       }
     }),
     WindiCSS()
-  ]
+  ],
+  test: {
+    global: true,
+    environment: 'happy-dom'
+  }
 })
