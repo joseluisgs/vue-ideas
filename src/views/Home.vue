@@ -25,7 +25,11 @@
         </form>
       </section>
       <!-- Ideas -->
-      <AppIdea />
+      <AppIdea
+        v-for="(idea, $index) in ideas"
+        :key="$index"
+        :idea="idea"
+      />
       <!-- /Idea -->
     </div>
     <!-- /Main Box -->
@@ -35,10 +39,19 @@
 
 <script>
 import AppIdea from '../components/AppIdea.vue'
+import data from '../services/data.json'
+import { ref } from 'vue'
 export default {
   name: 'Home',
   components: {
     AppIdea
+  },
+
+  setup () {
+    const ideas = ref(data.ideas)
+    return {
+      ideas
+    }
   }
 }
 </script>

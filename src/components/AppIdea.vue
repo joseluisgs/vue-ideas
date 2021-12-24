@@ -1,16 +1,16 @@
 <template>
-  <article class="p-3 rounded-lg bg-gray-300 sm:(flex items-center)">
+  <article class="p-3 mb-4 rounded-lg bg-gray-300 sm:(flex items-center)">
     <!-- Info -->
     <section class="text-center sm:(flex-1 text-left)">
       <h2 class="text-xl sm:(leading-6 text-2xl)">
-        Esto es una idea lorem ipsum dolor sit amet.
+        {{ idea.name }}
       </h2>
-      <small>Username</small>
+      <small>{{ idea.userName }}</small>
     </section>
     <!-- Votos -->
     <section class="pt-3 border-t-2 mt-6 border-black sm:(pt-0 pl-3 border-t-0 border-l-2 mt-0 flex items-center)">
       <h3 class="text-3xl font-bold text-center">
-        99
+        {{ idea.votes }}
       </h3>
       <nav class="flex justify-center sm:(block pl-2)">
         <img
@@ -30,7 +30,13 @@
 
 <script>
 export default {
-  name: 'AppIdea'
+  name: 'AppIdea',
+  props: {
+    idea: {
+      type: Object,
+      required: true
+    }
+  }
 }
 </script>
 
