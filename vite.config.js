@@ -11,7 +11,7 @@ export default defineConfig({
     eslintPlugin(),
     ViteFonts({
       google: {
-        families: ['Open Sans', 'Montserrat', 'Fira Sans']
+        families: ['Ubuntu', 'Montserrat', 'Fira Sans']
       }
     }),
     WindiCSS()
