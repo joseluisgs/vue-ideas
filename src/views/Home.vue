@@ -18,6 +18,7 @@
         v-for="(idea, $index) in ideas"
         :key="$index"
         :idea="idea"
+        @vote-idea="voteIdea"
       />
       <!-- /Idea -->
     </div>
@@ -32,7 +33,7 @@ import AppIdea from '../components/AppIdea.vue'
 import AddIdea from '../components/AddIdea.vue'
 import { auth, providerGoogle, db, ideasCollection } from '../services/Firebase'
 import { onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth'
-import { collection, addDoc, onSnapshot, query } from 'firebase/firestore'
+import { collection, addDoc, onSnapshot, query, doc, updateDoc, increment, orderBy, getDoc } from 'firebase/firestore'
 export default {
   name: 'Home',
   components: {
@@ -48,7 +49,7 @@ export default {
     onAuthStateChanged(auth, (auth) => (user.value = auth || null))
 
     // Obtener ideas en tiempos real, primero la consulta, luego la recorro y la guardo en el array
-    const q = query(collection(db, ideasCollection))
+    const q = query(collection(db, ideasCollection), orderBy('votes', 'desc'))
     onSnapshot(q, (querySnapshot) => {
       const newIdeas = []
       querySnapshot.forEach((doc) => {
@@ -95,8 +96,28 @@ export default {
       }
     }
 
+    const voteIdea = async ({ id, type }) => {
+      try {
+        console.log('Votando idea: ', id, type)
+        const ideaRef = doc(db, ideasCollection, id)
+        const idea = (await getDoc(ideaRef)).data()
+        // incremento: https://firebase.google.com/docs/firestore/manage-data/add-data
+        if (!type && idea.votes > 0) {
+          await updateDoc(ideaRef, {
+            votes: increment(-1)
+          })
+        } else if (type) {
+          await updateDoc(ideaRef, {
+            votes: increment(1)
+          })
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
     // Exponemos
-    return { ideas, user, doLogin, doLogout, addIdea }
+    return { ideas, user, doLogin, doLogout, addIdea, voteIdea }
   }
 }
 </script>
