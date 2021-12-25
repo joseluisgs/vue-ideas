@@ -117,6 +117,16 @@ export default {
 
     const voteIdea = async ({ id, type }) => {
       try {
+        // Obtengo el documento del voto par comprobar si ha votado
+        const voteRef = doc(db, votesCollection, user.value.uid)
+        let votes = await getDoc(voteRef)
+        if (votes.exists) {
+          votes = votes.data().ideas
+          if (votes.find(vote => vote === id)) {
+            throw new Error('user already voted!')
+          }
+        }
+
         console.log('Votando idea: ', id, type)
         const ideaRef = doc(db, ideasCollection, id)
         const idea = (await getDoc(ideaRef)).data()
