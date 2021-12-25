@@ -7,44 +7,11 @@
         Idea Box
       </h1>
       <!-- Add Idea -->
-      <section class="mb-6">
-        <!-- aplico flex a partir de sm: 640, asi son los puntos de ruptura -->
-        <form class="sm:flex">
-          <input
-            type="text"
-            required
-            class="w-full p-3
-              sm:flex-auto"
-            placeholder="Add your idea"
-          >
-          <input
-            v-if="user"
-            type="submit"
-            value="Add idea"
-            class="bg-gray-600 text-white w-full p-2 sm:flex-1"
-          >
-        </form>
-        <p
-          v-if="!user"
-          class="mt-2 text-center"
-        >
-          Please <a
-            class="font-bold text-blue-500 underline"
-            href="#"
-            @click="doLogin"
-          > do login </a> to add an idea.
-        </p>
-        <p
-          v-else
-          class="mt-2 text-center"
-        >
-          Hi 👋 {{ user.displayName }}. <a
-            class="font-bold text-green-600 underline"
-            href="#"
-            @click="doLogout"
-          > Logout </a>.
-        </p>
-      </section>
+      <AddIdea
+        :user="user"
+        @do-login="doLogin"
+        @do-logout="doLogout"
+      />
       <!-- Ideas -->
       <AppIdea
         v-for="(idea, $index) in ideas"
@@ -61,13 +28,14 @@
 <script>
 import { ref } from 'vue'
 import AppIdea from '../components/AppIdea.vue'
+import AddIdea from '../components/AddIdea.vue'
 import data from '../services/data.json'
 import Firebase from '../services/Firebase'
 import { onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth'
 export default {
   name: 'Home',
   components: {
-    AppIdea
+    AppIdea, AddIdea
   },
 
   setup () {
@@ -91,12 +59,8 @@ export default {
         console.error(error)
       }
     }
-    return {
-      ideas,
-      user,
-      doLogin,
-      doLogout
-    }
+    // Exponemos
+    return { ideas, user, doLogin, doLogout }
   }
 }
 </script>
