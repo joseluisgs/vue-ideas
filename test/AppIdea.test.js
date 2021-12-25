@@ -16,6 +16,17 @@ test('mount component', async () => {
     }
   })
   expect(wrapper.text()).toContain('Idea name 1')
-  expect(wrapper.html()).toMatchSnapshot()
   expect(wrapper.text()).toContain('Username 1')
+  expect(wrapper.html()).toMatchSnapshot()
+  const votes = wrapper.find('#votes').text().trim()
+  expect(votes).toBe('99')
+  const up = wrapper.find('#voteup')
+  await up.trigger('click')
+  expect(wrapper.emitted('vote-idea')).toBeTruthy()
+  // const event = wrapper.emitted('vote-idea')[0][0]
+  // expect(event.type).toBe(true)
+  expect(wrapper.emitted('vote-idea').length).toBe(1)
+  const down = wrapper.find('#votedown')
+  await down.trigger('click')
+  expect(wrapper.emitted('vote-idea').length).toBe(2)
 })

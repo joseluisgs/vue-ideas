@@ -1,14 +1,14 @@
 // Vitest Snapshot v1
 
 exports[`mount component 1`] = `
-"<article class=\\"p-3 mb-4 rounded-lg bg-gray-300 sm:flex sm:items-center\\">
+"<article class=\\"rounded-lg bg-gray-300 mb-4 p-3 sm:flex sm:items-center\\">
   <!-- Info -->
   <section class=\\"text-center sm:flex-1 sm:text-left\\">
-    <h2 class=\\"text-xl sm:leading-6 sm:text-2xl\\">Idea name 1</h2><small>Username 1</small>
+    <h2 class=\\"text-xl sm:leading-6 sm:text-2xl\\">Idea name 1</h2><small>by: Username 1</small>
   </section><!-- Votos -->
-  <section class=\\"pt-3 border-t-2 mt-6 border-black sm:pt-0 sm:pl-3 sm:border-t-0 sm:border-l-2 sm:mt-0 sm:flex sm:items-center\\">
-    <h3 class=\\"text-3xl font-bold text-center\\">99</h3>
-    <nav class=\\"flex justify-center sm:block sm:pl-2\\"><img class=\\"w-10 cursor-pointer\\" src=\\"/src/assets/images/arrow.svg\\" alt=\\"Vote up\\" /><img class=\\"w-10 cursor-pointer transform -rotate-180\\" src=\\"/src/assets/images/arrow.svg\\" alt=\\"Vote down\\" /></nav>
+  <section class=\\"border-black border-t-2 mt-6 pt-3 sm:pt-0 sm:pl-3 sm:border-t-0 sm:border-l-2 sm:mt-0 sm:flex sm:items-center\\">
+    <h3 id=\\"votes\\" class=\\"font-bold text-center text-3xl\\">99</h3>
+    <nav class=\\"flex justify-center sm:block sm:pl-2\\"><img id=\\"voteup\\" class=\\"cursor-pointer w-10\\" src=\\"/src/assets/images/arrow.svg\\" alt=\\"Vote up\\" /><img id=\\"votedown\\" class=\\"cursor-pointer transform w-10 -rotate-180\\" src=\\"/src/assets/images/arrow.svg\\" alt=\\"Vote down\\" /></nav>
   </section>
 </article>"
 `;

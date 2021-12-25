@@ -9,17 +9,22 @@
     </section>
     <!-- Votos -->
     <section class="border-black border-t-2 mt-6 pt-3 sm:(pt-0 pl-3 border-t-0 border-l-2 mt-0 flex items-center) ">
-      <h3 class="font-bold text-center text-3xl">
+      <h3
+        id="votes"
+        class="font-bold text-center text-3xl"
+      >
         {{ idea.votes }}
       </h3>
       <nav class="flex justify-center sm:(block pl-2) ">
         <img
+          id="voteup"
           class="cursor-pointer w-10"
           src="../assets/images/arrow.svg"
           alt="Vote up"
           @click="voteIdea(true)"
         >
         <img
+          id="votedown"
           class="cursor-pointer transform w-10 -rotate-180"
           src="../assets/images/arrow.svg"
           alt="Vote down"
