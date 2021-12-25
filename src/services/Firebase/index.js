@@ -27,7 +27,7 @@ const providerGoogle = new GoogleAuthProvider()
 const user = auth.currentUser
 
 // Colecciones de documentos a usar
-const ideasCollection = collection(db, 'vueideas-ideas')
+const ideasCollection = 'vueideas-ideas'
 
 // imprimimos el nombre del proyecto, esto espor depurar, luego quitar si se quiere
 // console.log(`⚑ Firebase -> ${defaultProject.name} ✓`);

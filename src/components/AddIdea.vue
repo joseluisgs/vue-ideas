@@ -1,8 +1,12 @@
 <template>
   <section class="mb-6">
     <!-- aplico flex a partir de sm: 640, asi son los puntos de ruptura -->
-    <form class="sm:flex">
+    <form
+      class="sm:flex"
+      @submit.prevent="addIdea"
+    >
       <input
+        v-model="idea"
         type="text"
         required
         class="w-full p-3
@@ -40,6 +44,7 @@
 </template>
 
 <script>
+import { ref } from 'vue'
 export default {
   name: 'AddIdea',
   props: {
@@ -47,13 +52,20 @@ export default {
       type: [Object, null]
     }
   },
-  emits: ['do-login', 'do-logout'],
+  emits: ['do-login', 'do-logout', 'add-idea'],
 
   setup (props, { emit }) {
+    const idea = ref('')
+
     const doLogin = () => emit('do-login')
     const doLogout = () => emit('do-logout')
+    const addIdea = () => {
+      emit('add-idea', idea.value.trim())
+      idea.value = ''
+    }
+
     // Exponemos
-    return { doLogin, doLogout }
+    return { idea, doLogin, doLogout, addIdea }
   }
 }
 </script>
