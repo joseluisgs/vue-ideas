@@ -1,25 +1,25 @@
 <template>
-  <article class="p-3 mb-4 rounded-lg bg-gray-300 sm:(flex items-center)">
+  <article class="rounded-lg bg-gray-300 mb-4 p-3 sm:(flex items-center) ">
     <!-- Info -->
-    <section class="text-center sm:(flex-1 text-left)">
-      <h2 class="text-xl sm:(leading-6 text-2xl)">
+    <section class="text-center sm:(flex-1 text-left) ">
+      <h2 class="text-xl sm:(leading-6 text-2xl) ">
         {{ idea.name }}
       </h2>
       <small>{{ idea.userName }}</small>
     </section>
     <!-- Votos -->
-    <section class="pt-3 border-t-2 mt-6 border-black sm:(pt-0 pl-3 border-t-0 border-l-2 mt-0 flex items-center)">
-      <h3 class="text-3xl font-bold text-center">
+    <section class="border-black border-t-2 mt-6 pt-3 sm:(pt-0 pl-3 border-t-0 border-l-2 mt-0 flex items-center) ">
+      <h3 class="font-bold text-center text-3xl">
         {{ idea.votes }}
       </h3>
-      <nav class="flex justify-center sm:(block pl-2)">
+      <nav class="flex justify-center sm:(block pl-2) ">
         <img
-          class="w-10 cursor-pointer"
+          class="cursor-pointer w-10"
           src="../assets/images/arrow.svg"
           alt="Vote up"
         >
         <img
-          class="w-10 cursor-pointer transform -rotate-180"
+          class="cursor-pointer transform w-10 -rotate-180"
           src="../assets/images/arrow.svg"
           alt="Vote down"
         >
