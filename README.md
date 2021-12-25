@@ -3,7 +3,7 @@ Sencillo proyecto y app para compartir ideas creado con Vue.js, WindiCSS (Tailwi
 
 [![Vue Ready](https://img.shields.io/badge/Vue.js%20v3-%20Ready-%2342b983)](https://es.vuejs.org/)
 [![LISENCE](https://img.shields.io/badge/Lisence-MIT-green)]()
-![GitHub](https://img.shields.io/github/last-commit/joseluisgs/vue-vite-js)
+![GitHub](https://img.shields.io/github/last-commit/joseluisgs/vue-ideas)
 
 
 ![imagen](https://news.uaf.edu/wp-content/uploads/2019/01/big-ideas-box.png)
