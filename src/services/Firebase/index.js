@@ -27,6 +27,7 @@ const user = auth.currentUser
 
 // Colecciones de documentos a usar
 const ideasCollection = 'vueideas-ideas'
+const votesCollection = 'vueideas-votes'
 
 // Creamos los directorios para almacenar los ficheros
 // const roomsStorage = storage.child('vuetalk').child('rooms');
@@ -43,7 +44,8 @@ export {
   // Proveedores de servicio para identificarse
   providerGoogle,
   // Colecciones
-  ideasCollection
+  ideasCollection,
+  votesCollection
   // Almacenamiento
   // roomsStorage,
   // Para la resolución inversa

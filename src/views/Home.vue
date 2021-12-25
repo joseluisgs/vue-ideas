@@ -18,6 +18,7 @@
         v-for="(idea, $index) in ideas"
         :key="$index"
         :idea="idea"
+        :user="user"
         @vote-idea="voteIdea"
       />
       <!-- /Idea -->
@@ -31,9 +32,9 @@
 import { ref } from 'vue'
 import AppIdea from '../components/AppIdea.vue'
 import AddIdea from '../components/AddIdea.vue'
-import { auth, providerGoogle, db, ideasCollection } from '../services/Firebase'
+import { auth, providerGoogle, db, ideasCollection, votesCollection } from '../services/Firebase'
 import { onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth'
-import { collection, addDoc, onSnapshot, query, doc, updateDoc, increment, orderBy, getDoc } from 'firebase/firestore'
+import { collection, addDoc, onSnapshot, query, doc, updateDoc, increment, orderBy, getDoc, setDoc, arrayUnion } from 'firebase/firestore'
 export default {
   name: 'Home',
   components: {
@@ -101,15 +102,24 @@ export default {
         console.log('Votando idea: ', id, type)
         const ideaRef = doc(db, ideasCollection, id)
         const idea = (await getDoc(ideaRef)).data()
+        let toVote = false
         // incremento: https://firebase.google.com/docs/firestore/manage-data/add-data
         if (!type && idea.votes > 0) {
           await updateDoc(ideaRef, {
             votes: increment(-1)
           })
+          toVote = true
         } else if (type) {
           await updateDoc(ideaRef, {
             votes: increment(1)
           })
+          toVote = true
+        }
+        if (toVote) {
+          const voteRef = doc(db, votesCollection, user.value.uid)
+          await setDoc(voteRef, {
+            ideas: arrayUnion(id)
+          }, { merge: true })
         }
       } catch (error) {
         console.error(error)

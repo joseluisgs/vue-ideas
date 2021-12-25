@@ -15,7 +15,10 @@
       >
         {{ idea.votes }}
       </h3>
-      <nav class="flex justify-center sm:(block pl-2) ">
+      <nav
+        v-if="user"
+        class="flex justify-center sm:(block pl-2)"
+      >
         <img
           id="voteup"
           class="cursor-pointer w-10"
@@ -42,6 +45,9 @@ export default {
     idea: {
       type: Object,
       required: true
+    },
+    user: {
+      type: [Object, null]
     }
   },
   emits: ['vote-idea'],
