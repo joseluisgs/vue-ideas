@@ -1,5 +1,5 @@
 <template>
-  <article class="rounded-lg bg-gray-300 mb-4 p-3 sm:(flex items-center) ">
+  <article class="rounded-lg mb-4 p-3 sm:(flex items-center) ">
     <!-- Info -->
     <section class="text-center sm:(flex-1 text-left) ">
       <h2 class="text-xl sm:(leading-6 text-2xl) ">
@@ -86,6 +86,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style>
 
 </style>

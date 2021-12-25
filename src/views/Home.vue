@@ -14,13 +14,16 @@
         @add-idea="addIdea"
       />
       <!-- Ideas -->
-      <AppIdea
-        v-for="idea in ideas"
-        :key="idea.createdAt"
-        :idea="idea"
-        :user="user"
-        @vote-idea="voteIdea"
-      />
+      <transition-group name="list-complete">
+        <AppIdea
+          v-for="idea in ideas"
+          :key="idea.createdAt"
+          :idea="idea"
+          :user="user"
+          class="idea"
+          @vote-idea="voteIdea"
+        />
+      </transition-group>
       <!-- /Idea -->
     </div>
     <!-- /Main Box -->
@@ -168,4 +171,43 @@ export default {
 </script>
 
 <style scoped>
+.idea {
+  transition: all 0.8s ease;
+}
+
+.list-complete-enter-from,
+.list-complete-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.list-complete-leave-active {
+  position: absolute;
+}
+
+.list-complete-move {
+  transition: transform 0.3s ease;
+}
+
+.idea {
+  @apply bg-gray-200;
+}
+.idea:nth-of-type(1) {
+  @apply bg-red-500;
+}
+.idea:nth-of-type(2) {
+  @apply bg-red-400;
+}
+.idea:nth-of-type(3) {
+  @apply bg-red-300;
+}
+.idea:nth-of-type(4) {
+  @apply bg-red-200;
+}
+.idea:nth-of-type(5) {
+  @apply bg-red-100;
+}
+.user-actions {
+  @apply mt-2 text-center;
+}
 </style>
