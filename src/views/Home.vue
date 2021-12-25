@@ -15,8 +15,8 @@
       />
       <!-- Ideas -->
       <AppIdea
-        v-for="(idea, $index) in ideas"
-        :key="$index"
+        v-for="idea in ideas"
+        :key="idea.createdAt"
         :idea="idea"
         :user="user"
         @vote-idea="voteIdea"
@@ -54,11 +54,15 @@ export default {
       let userVotes = null
       if (auth) {
         user.value = auth
+        // Obtengo la referencia a los votos de con esta id
         userVotes = doc(db, votesCollection, user.value.uid)
+        // Me traigo los documentos asociados a esa id
         onSnapshot(userVotes, (doc) => {
-          const document = doc.data()
-          if ('ideas' in document) {
-            user.value.votes = document.ideas
+          if (doc.exists()) {
+            const document = doc.data()
+            if ('ideas' in document) {
+              user.value.votes = document.ideas
+            }
           }
         })
       } else {
@@ -73,8 +77,8 @@ export default {
       const newIdeas = []
       querySnapshot.forEach((doc) => {
         const id = doc.id
-        const { name, user, userName, votes } = doc.data()
-        newIdeas.push({ id, name, user, userName, votes })
+        const { name, user, userName, votes, createdAt } = doc.data()
+        newIdeas.push({ id, name, user, userName, votes, createdAt })
       })
       console.log('New Ideas: ', newIdeas)
       ideas.value = newIdeas
@@ -106,7 +110,7 @@ export default {
           name: idea,
           user: user.value.uid,
           userName: user.value.displayName,
-          createdAt: new Date(),
+          createdAt: Date.now(),
           votes: 0
         })
         console.log('Documento salvado con ID: ', docRef.id)
@@ -117,10 +121,11 @@ export default {
 
     const voteIdea = async ({ id, type }) => {
       try {
-        // Obtengo el documento del voto par comprobar si ha votado
+        // Obtengo el documento del voto par comprobar si ha votado, lo controlo antes que vaya al servidor
         const voteRef = doc(db, votesCollection, user.value.uid)
         let votes = await getDoc(voteRef)
-        if (votes.exists) {
+        console.log('Votes: ', votes)
+        if (votes.exists()) {
           votes = votes.data().ideas
           if (votes.find(vote => vote === id)) {
             throw new Error('user already voted!')
@@ -128,6 +133,7 @@ export default {
         }
 
         console.log('Votando idea: ', id, type)
+        // Actualizo la idea si puedo votarla.
         const ideaRef = doc(db, ideasCollection, id)
         const idea = (await getDoc(ideaRef)).data()
         let toVote = false
@@ -143,6 +149,7 @@ export default {
           })
           toVote = true
         }
+        // Si he podido votar, entonces agrego el voto a la coleccion de votos
         if (toVote) {
           const voteRef = doc(db, votesCollection, user.value.uid)
           await setDoc(voteRef, {

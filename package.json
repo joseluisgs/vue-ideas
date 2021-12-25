@@ -11,6 +11,7 @@
     "coverage": "vitest --coverage"
   },
   "dependencies": {
+    "dayjs": "^1.10.7",
     "firebase": "^9.6.1",
     "pinia": "^2.0.8",
     "vue": "^3.2.25",

@@ -5,7 +5,9 @@
       <h2 class="text-xl sm:(leading-6 text-2xl) ">
         {{ idea.name }}
       </h2>
-      <small>by: {{ idea.userName }}</small>
+      <small>{{ idea.userName }}
+        <i>, {{ timeAgo(idea.createdAt) }}</i>
+      </small>
     </section>
     <!-- Votos -->
     <section class="border-black border-t-2 mt-6 pt-3 sm:(pt-0 pl-3 border-t-0 border-l-2 mt-0 flex items-center) ">
@@ -40,6 +42,13 @@
 
 <script>
 import { computed } from 'vue'
+import dayjs from 'dayjs'
+import 'dayjs/locale/es'
+import relativeTime from 'dayjs/plugin/relativeTime'
+
+dayjs.locale('es')
+dayjs.extend(relativeTime)
+
 export default {
   name: 'AppIdea',
   props: {
@@ -63,7 +72,16 @@ export default {
       }
     })
 
-    return { voteIdea, userVoted }
+    const timeAgo = (timestamp) => {
+      if (timestamp) {
+        const date = new Date(timestamp)
+        return dayjs().from(dayjs(date), true)
+        // return dayjs(date).format('DD/MM/YYYY HH:mm:ss')
+      }
+      return ''
+    }
+
+    return { voteIdea, userVoted, timeAgo }
   }
 }
 </script>
