@@ -30,10 +30,9 @@
 import { ref } from 'vue'
 import AppIdea from '../components/AppIdea.vue'
 import AddIdea from '../components/AddIdea.vue'
-import data from '../services/data.json'
 import { auth, providerGoogle, db, ideasCollection } from '../services/Firebase'
 import { onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth'
-import { collection, addDoc } from 'firebase/firestore'
+import { collection, addDoc, onSnapshot, query } from 'firebase/firestore'
 export default {
   name: 'Home',
   components: {
@@ -42,11 +41,27 @@ export default {
   },
 
   setup () {
-    const ideas = ref(data.ideas)
+    const ideas = ref([])
     const user = ref(null)
 
     // Me conecto a firebase y obtengo el usuario actual
     onAuthStateChanged(auth, (auth) => (user.value = auth || null))
+
+    // Obtener ideas en tiempos real, primero la consulta, luego la recorro y la guardo en el array
+    const q = query(collection(db, ideasCollection))
+    onSnapshot(q, (querySnapshot) => {
+      const newIdeas = []
+      querySnapshot.forEach((doc) => {
+        const id = doc.id
+        const { name, user, userName, votes } = doc.data()
+        newIdeas.push({ id, name, user, userName, votes })
+      })
+      console.log('New Ideas: ', newIdeas)
+      ideas.value = newIdeas
+    },
+    (error) => console.log('Error: ', error)
+    )
+
     // login
     const doLogin = async () => {
       try {
