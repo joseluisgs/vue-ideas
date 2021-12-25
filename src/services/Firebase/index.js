@@ -36,8 +36,8 @@ const ideasCollection = collection(db, 'vueideas-ideas')
 // const roomsStorage = storage.child('vuetalk').child('rooms');
 // const urlStorage = firebase.storage();
 
-// Exportamos lo que necesitemos
-export default {
+// Exportamos lo que necesitemos, ya no como default e importamos lo que necesitemos
+export {
   // Elementos de firebase
   firebase, // Para algunas opciones como los metadatos
   db,

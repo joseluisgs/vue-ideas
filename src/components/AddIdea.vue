@@ -48,6 +48,7 @@ export default {
     }
   },
   emits: ['do-login', 'do-logout'],
+
   setup (props, { emit }) {
     const doLogin = () => emit('do-login')
     const doLogout = () => emit('do-logout')

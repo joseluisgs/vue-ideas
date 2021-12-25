@@ -30,23 +30,24 @@ import { ref } from 'vue'
 import AppIdea from '../components/AppIdea.vue'
 import AddIdea from '../components/AddIdea.vue'
 import data from '../services/data.json'
-import Firebase from '../services/Firebase'
+import { auth, providerGoogle } from '../services/Firebase'
 import { onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth'
 export default {
   name: 'Home',
   components: {
-    AppIdea, AddIdea
+    AppIdea,
+    AddIdea
   },
 
   setup () {
     const ideas = ref(data.ideas)
     const user = ref(null)
     // Me conecto a firebase y obtengo el usuario actual
-    onAuthStateChanged(Firebase.auth, (auth) => (user.value = auth || null))
+    onAuthStateChanged(auth, (auth) => (user.value = auth || null))
     // login
     const doLogin = async () => {
       try {
-        await signInWithPopup(Firebase.auth, Firebase.providerGoogle)
+        await signInWithPopup(auth, providerGoogle)
       } catch (error) {
         console.error(error)
       }
@@ -54,7 +55,7 @@ export default {
     // logout
     const doLogout = async () => {
       try {
-        await signOut(Firebase.auth)
+        await signOut(auth)
       } catch (error) {
         console.error(error)
       }
@@ -66,5 +67,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>
