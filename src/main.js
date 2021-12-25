@@ -11,7 +11,7 @@ import './assets/styles/base.css'
 
 // Firebase
 if (import.meta.env.VITE_APP_STAGE === 'dev') {
-  console.log(`⚑ Firebase -> ${Service.defaultProject.name} ✓`)
+  console.log(`⚑ Firebase -> ${Service.firebase.name} ✓`)
 }
 
 createApp(App)

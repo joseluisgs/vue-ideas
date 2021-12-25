@@ -1,11 +1,10 @@
-// Firebase
-// Mi Plantilla genérica
-import firebase from 'firebase/app' // mejor que poner import firebase from 'firebase';
+// Mi Plantilla genérica de Firebase v9
+import { initializeApp } from 'firebase/app' // mejor que poner import firebase from 'firebase';
 
 // Firebase y sus servicios
-import 'firebase/firestore'
-import 'firebase/auth'
-import 'firebase/storage'
+import { getFirestore, collection } from 'firebase/firestore'
+import { getAuth, GoogleAuthProvider } from 'firebase/auth'
+// import 'firebase/storage'
 
 // Fichero de configuración de Firebase y lectura de las variables
 import FirebaseConfig from './FirebaseConfig'
@@ -13,23 +12,22 @@ import FirebaseConfig from './FirebaseConfig'
 const firebaseConfig = FirebaseConfig
 
 // Inicializar Firebase. Es opcional guardarlo en una constante, si lo hago es para imprimirlo o asegurar que funciona
-const defaultProject = firebase.initializeApp(firebaseConfig)
+const firebase = initializeApp(firebaseConfig)
 // firebase.analytics();
 
 // Elementos de Firebase a usar (Cargamos los que vayamos a usar)
-const db = firebase.firestore() // Base de datos en tiempo real
-const auth = firebase.auth() // Autenticación
+const db = getFirestore() // Base de datos en tiempo real
+const auth = getAuth() // Autenticación
 // const storage = firebase.storage().ref(); // Almacenamiento
 
 // Métodos de autentificación. Autenticación de Google, poner uno por método de identificación. Se debe eactivar en la consola de Firebase
-const providerGoogle = new firebase.auth.GoogleAuthProvider()
+const providerGoogle = new GoogleAuthProvider()
 
 // usuario actual
 const user = auth.currentUser
 
 // Colecciones de documentos a usar
-// const usersCollection = db.collection('vuekanban-users');
-const ideasCollection = db.collection('vueideas-ideas')
+const ideasCollection = collection(db, 'vueideas-ideas')
 
 // imprimimos el nombre del proyecto, esto espor depurar, luego quitar si se quiere
 // console.log(`⚑ Firebase -> ${defaultProject.name} ✓`);
@@ -46,7 +44,6 @@ export default {
   auth,
   // Usuario actual
   user,
-  defaultProject,
   // Proveedores de servicio para identificarse
   providerGoogle,
   // Colecciones
