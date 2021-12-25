@@ -16,7 +16,7 @@
         {{ idea.votes }}
       </h3>
       <nav
-        v-if="user"
+        v-if="user && !userVoted"
         class="flex justify-center sm:(block pl-2)"
       >
         <img
@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import { computed } from 'vue'
 export default {
   name: 'AppIdea',
   props: {
@@ -54,8 +55,15 @@ export default {
 
   setup (props, { emit }) {
     const voteIdea = (type) => emit('vote-idea', { id: props.idea.id, type })
+    const userVoted = computed(() => {
+      if (props.user.votes) {
+        return props.user.votes.find(item => item === props.idea.id)
+      } else {
+        return false
+      }
+    })
 
-    return { voteIdea }
+    return { voteIdea, userVoted }
   }
 }
 </script>
