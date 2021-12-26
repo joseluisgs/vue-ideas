@@ -51,6 +51,7 @@ import {
   collection, addDoc, onSnapshot, query, doc, updateDoc,
   increment, orderBy, getDoc, setDoc, arrayUnion, deleteDoc, arrayRemove
 } from 'firebase/firestore'
+import router from '../router'
 
 const RemoveIdea = defineAsyncComponent(() => import('../components/RemoveIdea.vue'))
 
@@ -109,6 +110,8 @@ export default {
     const doLogin = async () => {
       try {
         await signInWithPopup(auth, providerGoogle)
+        router.go()
+        // router.push({ name: 'Home' })
       } catch (error) {
         console.error(error)
       }
@@ -116,6 +119,8 @@ export default {
     // logout
     const doLogout = async () => {
       try {
+        router.go()
+        // router.push({ name: 'Home' })
         await signOut(auth)
       } catch (error) {
         console.error(error)
