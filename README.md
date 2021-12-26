@@ -4,6 +4,7 @@ Sencillo proyecto y app para compartir ideas creado con Vue.js, WindiCSS (Tailwi
 [![Vue Ready](https://img.shields.io/badge/Vue.js%20v3-%20Ready-%2342b983)](https://es.vuejs.org/)
 [![LISENCE](https://img.shields.io/badge/Lisence-MIT-green)]()
 ![GitHub](https://img.shields.io/github/last-commit/joseluisgs/vue-ideas)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/e2bd8d6c-d218-4300-b7ff-c4b916185b8f/deploy-status)](https://app.netlify.com/sites/vue-ideas/deploys)
 
 
 ![imagen](https://news.uaf.edu/wp-content/uploads/2019/01/big-ideas-box.png)
@@ -17,6 +18,8 @@ npm run build
 npm run preview
 npm run lint
 ```
+## Despliegue
+[https://vue-ideas.netlify.app/](https://vue-ideas.netlify.app/)
 
 ## Autor
 
