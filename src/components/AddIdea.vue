@@ -9,15 +9,15 @@
         v-model="idea"
         type="text"
         required
-        class="w-full p-3
-              sm:flex-auto"
+        class="rounded-t-md w-full p-3
+              sm:(flex-auto rounded-none rounded-l-md) "
         placeholder="Add your idea"
       >
       <input
         v-if="user"
         type="submit"
         value="Add idea"
-        class="bg-gray-600 text-white w-full p-2 sm:flex-1"
+        class="rounded-b-md bg-gray-600 text-white w-full p-2 sm:(flex-1 rounded-none rounded-r-md) "
       >
     </form>
     <p

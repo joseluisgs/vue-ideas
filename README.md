@@ -7,6 +7,7 @@ Sencillo proyecto y app para compartir ideas creado con Vue.js, WindiCSS (Tailwi
 
 
 ![imagen](https://news.uaf.edu/wp-content/uploads/2019/01/big-ideas-box.png)
+![imagen](./images/image-01.png)
 
 ## Uso
 ```shell

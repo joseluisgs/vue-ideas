@@ -11,7 +11,7 @@
       />
     </teleport>
     <!-- Main Box -->
-    <div class="rounded-lg bg-gray-100 shadow-lg w-full p-4">
+    <div class="rounded-lg bg-gray-200 shadow-lg w-full p-4">
       <h1 class="text-center mb-5 text-4xl">
         Idea Box
       </h1>
@@ -240,7 +240,7 @@ export default {
 }
 
 .idea {
-  @apply bg-gray-200;
+  @apply bg-red-50;
 }
 .idea:nth-of-type(1) {
   @apply bg-red-500;

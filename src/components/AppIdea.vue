@@ -3,7 +3,7 @@
     <!-- Delete button -->
     <img
       v-if="userIdea"
-      class="mr-3 cursor-pointer"
+      class="cursor-pointer mr-3"
       src="../assets/images/remove.svg"
       alt="Remove idea"
       @click="removeIdea"
@@ -27,7 +27,7 @@
       </h3>
       <nav
         v-if="user && !userVoted"
-        class="flex justify-center sm:(block pl-2)"
+        class="flex justify-center sm:(block pl-2) "
       >
         <img
           id="voteup"
