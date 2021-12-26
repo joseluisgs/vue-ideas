@@ -17,6 +17,7 @@ module.exports = {
     'vue/require-default-prop': 'off',
     'vue/multi-word-component-names': 0, // disable this rule just for views
     'vue/script-setup-uses-vars': 'error',
-    'vue/no-unused-vars': 'error' // Me daba un error temporal, luego quitar
+    'vue/no-unused-vars': 'error', // Me daba un error temporal, luego quitar
+    'no-unused-vars': 'error' // Me daba un error temporal
   }
 }

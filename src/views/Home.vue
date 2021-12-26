@@ -1,6 +1,15 @@
 <template>
   <!-- Main Container -->
   <div class="container mx-auto p-4">
+    <!-- Remove Idea -->
+    <teleport to="body">
+      <RemoveIdea
+        v-if="isModalActive"
+        :name="ideaToRemove.name"
+        @remove-ok="removeIdea"
+        @remove-cancel="isModalActive = !isModalActive"
+      />
+    </teleport>
     <!-- Main Box -->
     <div class="rounded-lg bg-gray-100 shadow-lg w-full p-4">
       <h1 class="text-center mb-5 text-4xl">
@@ -33,27 +42,31 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, defineAsyncComponent } from 'vue'
 import AppIdea from '../components/AppIdea.vue'
 import AddIdea from '../components/AddIdea.vue'
 import { auth, providerGoogle, db, ideasCollection, votesCollection } from '../services/Firebase'
 import { onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth'
 import {
   collection, addDoc, onSnapshot, query, doc, updateDoc,
-  increment, orderBy, getDoc, setDoc, arrayUnion
+  increment, orderBy, getDoc, setDoc, arrayUnion, deleteDoc, arrayRemove
 } from 'firebase/firestore'
+
+const RemoveIdea = defineAsyncComponent(() => import('../components/RemoveIdea.vue'))
+
 export default {
   name: 'Home',
   components: {
     AppIdea,
-    AddIdea
+    AddIdea,
+    RemoveIdea
   },
 
   setup () {
     const ideas = ref([])
     const user = ref(null)
     const isModalActive = ref(false)
-    const ideaToRemove = {}
+    let ideaToRemove = {}
 
     // Me conecto a firebase y obtengo el usuario actual
     onAuthStateChanged(auth, (auth) => {
@@ -171,7 +184,23 @@ export default {
       ideaToRemove.name = name
       ideaToRemove.id = id
       isModalActive.value = true
-      console.log('modal removeIdea', ideaToRemove)
+    }
+
+    const removeIdea = async () => {
+      try {
+        // Borramos de la lista de votesCollection
+        const voteRef = doc(db, votesCollection, user.value.uid)
+        await setDoc(voteRef, {
+          ideas: arrayRemove(ideaToRemove.id)
+        }, { merge: true })
+        // Borro de la lista de ideasCollection
+        const ideaRef = doc(db, ideasCollection, ideaToRemove.id)
+        await deleteDoc(ideaRef)
+        ideaToRemove = {}
+        isModalActive.value = false
+      } catch (error) {
+        console.error(error)
+      }
     }
 
     // Exponemos
@@ -184,7 +213,8 @@ export default {
       voteIdea,
       isModalActive,
       ideaToRemove,
-      showRemoveIdea
+      showRemoveIdea,
+      removeIdea
     }
   }
 }

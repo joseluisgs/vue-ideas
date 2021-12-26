@@ -1,18 +1,21 @@
 <template>
   <div class="w-full flex justify-center absolute top-40">
-    <article class="w-3/4 p-4 bg-gray-400 shadow-2xl">
+    <article class="w-3/4 p-4 bg-gray-300 shadow-2xl rounded-2xl">
+      <p class="text-center text-xl text-red-900">
+        Remove idea?
+      </p>
       <p class="text-center text-xl">
-        Remove {{ name }}?
+        {{ name }}
       </p>
       <section class="flex justify-end">
         <button
-          class="p-3 m-1 bg-red-500 text-white"
+          class="p-3 m-1 bg-red-500 text-white rounded-sm cursor-pointer"
           @click="$emit('remove-ok')"
         >
           OK
         </button>
         <button
-          class="p-3 m-1 bg-gray-200"
+          class="p-3 m-1 bg-gray-100 rounded-sm cursos-pointer"
           @click="$emit('remove-cancel')"
         >
           Cancel
