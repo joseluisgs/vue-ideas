@@ -22,6 +22,7 @@
           :user="user"
           class="idea"
           @vote-idea="voteIdea"
+          @remove-idea="showRemoveIdea"
         />
       </transition-group>
       <!-- /Idea -->
@@ -51,6 +52,8 @@ export default {
   setup () {
     const ideas = ref([])
     const user = ref(null)
+    const isModalActive = ref(false)
+    const ideaToRemove = {}
 
     // Me conecto a firebase y obtengo el usuario actual
     onAuthStateChanged(auth, (auth) => {
@@ -164,8 +167,25 @@ export default {
       }
     }
 
+    const showRemoveIdea = ({ name, id }) => {
+      ideaToRemove.name = name
+      ideaToRemove.id = id
+      isModalActive.value = true
+      console.log('modal removeIdea', ideaToRemove)
+    }
+
     // Exponemos
-    return { ideas, user, doLogin, doLogout, addIdea, voteIdea }
+    return {
+      ideas,
+      user,
+      doLogin,
+      doLogout,
+      addIdea,
+      voteIdea,
+      isModalActive,
+      ideaToRemove,
+      showRemoveIdea
+    }
   }
 }
 </script>

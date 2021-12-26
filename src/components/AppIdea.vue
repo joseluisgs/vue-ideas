@@ -1,5 +1,13 @@
 <template>
   <article class="rounded-lg mb-4 p-3 sm:(flex items-center) ">
+    <!-- Delete button -->
+    <img
+      v-if="userIdea"
+      class="mr-3 cursor-pointer"
+      src="../assets/images/remove.svg"
+      alt="Remove idea"
+      @click="removeIdea"
+    >
     <!-- Info -->
     <section class="text-center sm:(flex-1 text-left) ">
       <h2 class="text-xl sm:(leading-6 text-2xl) ">
@@ -60,7 +68,7 @@ export default {
       type: [Object, null]
     }
   },
-  emits: ['vote-idea'],
+  emits: ['vote-idea', 'remove-idea'],
 
   setup (props, { emit }) {
     const voteIdea = (type) => emit('vote-idea', { id: props.idea.id, type })
@@ -71,6 +79,13 @@ export default {
         return false
       }
     })
+    // es mi idea
+    const userIdea = computed(() => props.user && props.user.uid === props.idea.user)
+    const removeIdea = () => emit('remove-idea',
+      {
+        name: props.idea.name,
+        id: props.idea.id
+      })
 
     const timeAgo = (timestamp) => {
       if (timestamp) {
@@ -81,7 +96,7 @@ export default {
       return ''
     }
 
-    return { voteIdea, userVoted, timeAgo }
+    return { voteIdea, userVoted, timeAgo, userIdea, removeIdea }
   }
 }
 </script>
